@@ -1,0 +1,5 @@
+[
+  { "id": "RSV-24019871", "date": "2026-03-02", "time": "11:00 AM", "laneType": "Pistol", "addons": ["Target pack"] },
+  { "id": "RSV-24019872", "date": "2026-03-02", "time": "01:00 PM", "laneType": "Rifle", "addons": ["Eye protection rental"] },
+  { "id": "RSV-24019873", "date": "2026-03-03", "time": "03:00 PM", "laneType": "Pistol", "addons": [] }
+]

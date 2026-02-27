@@ -1,0 +1,5 @@
+[
+  { "tier": "Basic", "price": 49, "hours": 2, "guestPasses": 1, "discount": 5 },
+  { "tier": "Pro", "price": 89, "hours": 5, "guestPasses": 2, "discount": 10 },
+  { "tier": "Elite", "price": 149, "hours": 10, "guestPasses": 4, "discount": 15 }
+]

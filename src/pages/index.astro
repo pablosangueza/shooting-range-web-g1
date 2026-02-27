@@ -1,0 +1,28 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+<BaseLayout title="IronStack Range Demo">
+  <section class="animate-fade space-y-6 text-center">
+    <p class="text-sm uppercase tracking-[0.2em] text-red-500">SaaS Demo for Modern Gun Ranges</p>
+    <h1 class="text-4xl font-bold text-white md:text-5xl">Modern Range Operations. Simplified.</h1>
+    <p class="mx-auto max-w-2xl text-slate-300">Drive bookings, memberships, training revenue, and compliance through one tactical operations hub.</p>
+    <div class="flex flex-wrap justify-center gap-3">
+      <a href={`${Astro.base}reserve`} class="btn-primary">Reserve a Lane</a>
+      <a href={`${Astro.base}membership`} class="btn-secondary">Join Membership</a>
+      <a href={`${Astro.base}training`} class="btn-secondary">Book Training</a>
+    </div>
+  </section>
+
+  <section class="mt-12 grid gap-4 md:grid-cols-3">
+    {[
+      ['Online Lane Reservations', 'Frictionless time-slot booking with add-ons and instant confirmation IDs.'],
+      ['Digital Waivers + Compliance', 'Capture signatures, timestamps, and participant details with auditable records.'],
+      ['Membership & Revenue Insights', 'Track recurring plans and occupancy to improve operational decisions.']
+    ].map(([title, text]) => (
+      <article class="card animate-fade p-5">
+        <h3 class="text-lg font-semibold text-white">{title}</h3>
+        <p class="mt-2 text-sm text-slate-400">{text}</p>
+      </article>
+    ))}
+  </section>
+</BaseLayout>

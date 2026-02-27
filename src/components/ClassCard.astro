@@ -1,0 +1,10 @@
+---
+const { classItem } = Astro.props;
+---
+<article class="card animate-fade p-5">
+  <h3 class="text-lg font-semibold">{classItem.title}</h3>
+  <p class="mt-2 text-sm text-slate-400">Instructor: {classItem.instructor}</p>
+  <p class="text-sm text-slate-400">Duration: {classItem.duration}</p>
+  <p class="mb-4 text-sm text-slate-300">${classItem.price}</p>
+  <button class="btn-primary class-register" data-class={classItem.title}>Register</button>
+</article>

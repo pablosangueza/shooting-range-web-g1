@@ -1,0 +1,37 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+<BaseLayout title="Waiver | IronStack Range Demo">
+  <h1 class="mb-2 text-3xl font-bold text-white">Digital Waiver</h1>
+  <p class="mb-6 text-slate-400">Collect e-signatures before check-in to stay compliant and reduce desk delays.</p>
+  <form id="waiver-form" class="card space-y-4 p-6">
+    <label class="space-y-1">Full name<input class="input" name="name" required /></label>
+    <label class="space-y-1">Email<input class="input" name="email" type="email" required /></label>
+    <label class="space-y-1">DOB<input class="input" name="dob" type="date" required /></label>
+    <label class="flex items-center gap-2"><input name="agree" type="checkbox" required /> I agree to range rules</label>
+    <label class="space-y-1">Typed signature<input class="input" name="signature" required /></label>
+    <button class="btn-primary" type="submit">Sign Waiver</button>
+  </form>
+</BaseLayout>
+
+<script>
+  const waiverForm = document.getElementById('waiver-form');
+  const base = import.meta.env.BASE_URL;
+  waiverForm?.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const fd = new FormData(waiverForm);
+    const waiver = {
+      id: `WVR-${Date.now().toString().slice(-8)}`,
+      name: fd.get('name'),
+      email: fd.get('email'),
+      dob: fd.get('dob'),
+      signature: fd.get('signature'),
+      createdAt: new Date().toISOString()
+    };
+    const waivers = JSON.parse(localStorage.getItem('waivers') || '[]');
+    waivers.unshift(waiver);
+    localStorage.setItem('waivers', JSON.stringify(waivers));
+    localStorage.setItem('lastSuccess', JSON.stringify({ type: 'Waiver', id: waiver.id }));
+    window.location.href = `${base}success`;
+  });
+</script>

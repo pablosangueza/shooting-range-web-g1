@@ -1,0 +1,23 @@
+---
+import DemoToggle from './DemoToggle.astro';
+const withBase = (path) => `${Astro.base}${path.replace(/^\//, '')}`;
+const nav = [
+  ['Home', '/'],
+  ['Reserve', '/reserve'],
+  ['Membership', '/membership'],
+  ['Training', '/training'],
+  ['Waiver', '/waiver'],
+  ['Admin', '/admin']
+];
+---
+<header class="sticky top-0 z-30 border-b border-slate-700 bg-slate-950/95 backdrop-blur">
+  <div class="mx-auto flex max-w-6xl flex-wrap items-center justify-between gap-3 px-4 py-4">
+    <a href={withBase('/')} class="text-lg font-bold tracking-wide text-white">IronStack Range Demo</a>
+    <nav class="flex flex-wrap items-center gap-2 text-sm">
+      {nav.map(([label, href]) => (
+        <a class="rounded-lg px-3 py-1.5 hover:bg-slate-800" href={withBase(href)}>{label}</a>
+      ))}
+    </nav>
+    <DemoToggle />
+  </div>
+</header>

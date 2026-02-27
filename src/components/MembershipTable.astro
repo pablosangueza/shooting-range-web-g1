@@ -1,0 +1,39 @@
+---
+import memberships from '../data/memberships.json';
+---
+<div class="card overflow-hidden">
+  <table class="w-full text-left text-sm">
+    <thead class="bg-slate-800 text-slate-100">
+      <tr>
+        <th class="p-3">Tier</th><th class="p-3">Price</th><th class="p-3">Free Lane Hours</th><th class="p-3">Guest Passes</th><th class="p-3">Discount</th><th class="p-3">Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      {memberships.map((plan) => (
+        <tr class="border-t border-slate-700">
+          <td class="p-3 font-semibold">{plan.tier}</td>
+          <td class="p-3">${plan.price}/mo</td>
+          <td class="p-3">{plan.hours}</td>
+          <td class="p-3">{plan.guestPasses}</td>
+          <td class="p-3">{plan.discount}%</td>
+          <td class="p-3"><button class="btn-primary join-btn" data-tier={plan.tier}>Join</button></td>
+        </tr>
+      ))}
+    </tbody>
+  </table>
+</div>
+
+<script>
+  const base = import.meta.env.BASE_URL;
+  document.querySelectorAll('.join-btn').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const tier = btn.getAttribute('data-tier');
+      const memberships = JSON.parse(localStorage.getItem('activeMemberships') || '[]');
+      const record = { id: `MEM-${Date.now().toString().slice(-8)}`, tier, startedAt: new Date().toISOString() };
+      memberships.unshift(record);
+      localStorage.setItem('activeMemberships', JSON.stringify(memberships));
+      localStorage.setItem('lastSuccess', JSON.stringify({ type: 'Membership', id: record.id }));
+      window.location.href = `${base}success`;
+    });
+  });
+</script>

@@ -1,0 +1,48 @@
+<form id="reservation-form" class="card space-y-4 p-6">
+  <h2 class="text-xl font-semibold">Reserve Your Lane</h2>
+  <div class="grid gap-4 md:grid-cols-2">
+    <label class="space-y-1">Date
+      <input class="input" name="date" type="date" required />
+    </label>
+    <label class="space-y-1">Time Slot
+      <select class="input" name="time" required>
+        <option value="">Select a time</option>
+        <option>09:00 AM</option><option>11:00 AM</option><option>01:00 PM</option><option>03:00 PM</option><option>05:00 PM</option>
+      </select>
+    </label>
+    <label class="space-y-1">Lane Type
+      <select class="input" name="laneType" required>
+        <option>Pistol</option>
+        <option>Rifle</option>
+      </select>
+    </label>
+    <fieldset class="space-y-2">
+      <legend>Add-ons</legend>
+      <label class="flex items-center gap-2"><input name="addons" value="Eye protection rental" type="checkbox" /> Eye protection rental</label>
+      <label class="flex items-center gap-2"><input name="addons" value="Target pack" type="checkbox" /> Target pack</label>
+    </fieldset>
+  </div>
+  <button class="btn-primary" type="submit">Confirm Reservation</button>
+</form>
+
+<script>
+  const form = document.getElementById('reservation-form');
+  const base = import.meta.env.BASE_URL;
+  form?.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const fd = new FormData(form);
+    const reservation = {
+      id: `RSV-${Date.now().toString().slice(-8)}`,
+      date: fd.get('date'),
+      time: fd.get('time'),
+      laneType: fd.get('laneType'),
+      addons: fd.getAll('addons'),
+      createdAt: new Date().toISOString()
+    };
+    const current = JSON.parse(localStorage.getItem('reservations') || '[]');
+    current.unshift(reservation);
+    localStorage.setItem('reservations', JSON.stringify(current));
+    localStorage.setItem('lastSuccess', JSON.stringify({ type: 'Reservation', id: reservation.id }));
+    window.location.href = `${base}success`;
+  });
+</script>
