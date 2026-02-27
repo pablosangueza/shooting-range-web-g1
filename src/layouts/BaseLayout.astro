@@ -1,0 +1,31 @@
+---
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import '../styles.css';
+const { title = 'IronStack Range Demo' } = Astro.props;
+---
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <title>{title}</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: { accent: '#b91c1c' }
+          }
+        }
+      };
+    </script>
+  </head>
+  <body>
+    <Header />
+    <main class="mx-auto max-w-6xl px-4 py-10">
+      <slot />
+    </main>
+    <Footer />
+  </body>
+</html>

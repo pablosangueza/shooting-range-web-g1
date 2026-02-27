@@ -1,0 +1,35 @@
+<div class="flex items-center gap-2 rounded-xl border border-slate-700 px-3 py-2 text-xs">
+  <span id="customer-label" class="text-slate-300">Customer View</span>
+  <button id="demo-toggle" type="button" class="relative h-6 w-12 rounded-full bg-slate-600 transition" aria-label="Toggle demo mode">
+    <span id="demo-dot" class="absolute left-1 top-1 h-4 w-4 rounded-full bg-white transition"></span>
+  </button>
+  <span id="admin-label" class="text-slate-500">Admin View</span>
+</div>
+
+<script>
+  const key = 'demoMode';
+  const button = document.getElementById('demo-toggle');
+  const dot = document.getElementById('demo-dot');
+  const customer = document.getElementById('customer-label');
+  const admin = document.getElementById('admin-label');
+
+  const apply = () => {
+    const mode = localStorage.getItem(key) || 'customer';
+    const isAdmin = mode === 'admin';
+    button?.classList.toggle('bg-red-700', isAdmin);
+    button?.classList.toggle('bg-slate-600', !isAdmin);
+    dot?.classList.toggle('translate-x-6', isAdmin);
+    customer?.classList.toggle('text-slate-500', isAdmin);
+    customer?.classList.toggle('text-slate-300', !isAdmin);
+    admin?.classList.toggle('text-slate-200', isAdmin);
+    admin?.classList.toggle('text-slate-500', !isAdmin);
+  };
+
+  button?.addEventListener('click', () => {
+    const mode = localStorage.getItem(key) || 'customer';
+    localStorage.setItem(key, mode === 'customer' ? 'admin' : 'customer');
+    apply();
+  });
+
+  apply();
+</script>

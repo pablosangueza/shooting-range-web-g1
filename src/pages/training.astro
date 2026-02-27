@@ -1,0 +1,27 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import ClassCard from '../components/ClassCard.astro';
+import classes from '../data/classes.json';
+---
+<BaseLayout title="Training | IronStack Range Demo">
+  <h1 class="mb-2 text-3xl font-bold text-white">Training Programs</h1>
+  <p class="mb-6 text-slate-400">Professional instruction catalog with one-click registration.</p>
+  <section class="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+    {classes.map((classItem) => <ClassCard classItem={classItem} />)}
+  </section>
+</BaseLayout>
+
+<script>
+  const base = import.meta.env.BASE_URL;
+  document.querySelectorAll('.class-register').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const title = btn.getAttribute('data-class');
+      const regs = JSON.parse(localStorage.getItem('classRegistrations') || '[]');
+      const entry = { id: `CLS-${Date.now().toString().slice(-8)}`, title, createdAt: new Date().toISOString() };
+      regs.unshift(entry);
+      localStorage.setItem('classRegistrations', JSON.stringify(regs));
+      localStorage.setItem('lastSuccess', JSON.stringify({ type: 'Class Registration', id: entry.id }));
+      window.location.href = `${base}success`;
+    });
+  });
+</script>
